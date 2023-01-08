@@ -45,5 +45,27 @@
       <button id="btnRestart">restart game</button>
     </div>
   </body>
-  <script></script>
+  <script>
+    const comItems = document.querySelectorAll("#com ul li");
+    const playerItems = document.querySelectorAll("#player ul li");
+    console.log("🚀 ~ file: index.html:50 ~ comItems", comItems);
+    function showComputerItem() {
+      const random = parseInt(Math.random() * 3);
+      console.log("🚀 ~ file: index.html:53 ~ showComputerItem ~ random", random);
+      comItems[0].style.display = "none";
+      comItems[1].style.display = "none";
+      comItems[2].style.display = "none";
+      comItems[random].style.display = "block";
+    }
+    let idx = setInterval(showComputerItem, 30);
+    playerItems[0].addEventListener("click", function () {
+      clearInterval(idx);
+    });
+    playerItems[1].addEventListener("click", function () {
+      clearInterval(idx);
+    });
+    playerItems[2].addEventListener("click", function () {
+      clearInterval(idx);
+    });
+  </script>
 </html>
