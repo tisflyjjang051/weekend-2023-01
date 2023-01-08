@@ -26,8 +26,34 @@
         }
         const cm = numHeight / 100;
         const bmi = numWeight / cm ** 2;
-        document.querySelector(".result").textContent = bmi;
+        let msg = "";
+        /*
+        if (bmi < 18.5) {
+          msg = "저체중";
+        } else if (bmi >= 18.5 && bmi < 23) {
+          msg = "정상";
+        } else {
+          msg = "비만";
+        }
+        */
+        if (bmi < 18.5) {
+          msg = "저체중";
+        } else if (bmi >= 23) {
+          msg = "비만";
+        } else {
+          msg = "정상";
+        }
+        document.querySelector(".result").textContent = `${bmi.toFixed(2)}/${msg}`;
       });
+      // function scope() {
+      //   let aaa = 10;
+      //   {
+      //     var bbb = 20;
+      //     //console.log(aaa);
+      //     // block scope
+      //   }
+      // }
+      // console.log(bbb);
     </script>
   </body>
 </html>
