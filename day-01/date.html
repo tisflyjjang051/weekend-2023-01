@@ -30,6 +30,11 @@
     <h2></h2>
     <h3></h3>
     <script>
+      function plusFive(num) {
+        console.log(num + 5);
+      }
+      plusFive(3);
+      plusFive(7);
       function bank(num, ratio) {
         return num + (num * ratio) / 100 - num * 0.015;
       }
@@ -44,46 +49,39 @@
         }
         return "" + num;
       }
+      // 자바스크립트 함수는 일급객체이다.
+      // 1. 변수에 할당할 수 있어야 한다.
+      // 2. 매개 변수로 전달받는다.
 
-      const now = new Date();
-      const year = now.getFullYear();
-      let month = addZero(now.getMonth() + 1);
-      let date = addZero(now.getDate());
-      const day = now.getDay(); //0~6 , 일,월,화,수,목,금
-      const dayList = ["Sun", "Mon", "화요일", "수요일", "목요일", "금요일", "토요일"];
+      const showDate = function () {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = addZero(now.getMonth() + 1);
+        const date = addZero(now.getDate());
+        const day = now.getDay(); //0~6 , 일,월,화,수,목,금
+        const dayList = ["Sun", "Mon", "화요일", "수요일", "목요일", "금요일", "토요일"];
 
-      let hour = addZero(now.getHours());
-      let min = addZero(now.getMinutes());
-      let sec = addZero(now.getSeconds());
+        const hour = addZero(now.getHours());
+        const min = addZero(now.getMinutes());
+        const sec = addZero(now.getSeconds());
 
-      function plusFive(num) {
-        console.log(num + 5);
+        document.querySelector("h1").textContent = `${year}/${month}/${date} ${dayList[day]}`;
+
+        document.querySelector("h2").innerHTML = `<span>${hour}</span>:<span>${min}</span>:${sec}`;
+      };
+      showDate();
+      const clickFunc = function () {
+        console.log("click");
+      };
+      document.querySelector("h1").addEventListener("click", clickFunc);
+      setInterval(showDate, 1000);
+
+      function makeCallBack(paramFunc) {
+        paramFunc();
       }
-      plusFive(3);
-      plusFive(7);
-
-      // if (month < 10) {
-      //   month = "0" + month;
-      // }
-      // if (date < 10) {
-      //   date = "0" + date;
-      // }
-      // if (hour < 10) {
-      //   hour = "0" + hour;
-      // }
-      // if (min < 10) {
-      //   min = "0" + min;
-      // }
-      // if (sec < 10) {
-      //   sec = "0" + sec;
-      // }
-
-      // month에 +1을 했을때 10보다 작으면 "0"+1
-      // document.querySelector("h1").textContent = year + "/" + (month + 1) + "/" + date + dayList[day];
-      document.querySelector("h1").textContent = `${year}/${month}/${date} ${dayList[day]}`;
-
-      document.querySelector("h2").innerHTML = `<span>${hour}</span>:<span>${min}</span>:${sec}`;
-      document.querySelector("h3").textContent = returnMoney;
+      makeCallBack(function () {
+        console.log("나는 콜백 함수");
+      });
     </script>
   </body>
 </html>
