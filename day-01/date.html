@@ -13,11 +13,14 @@
         background-color: #000;
         color: #fff;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
       }
-      h1 {
+      h1,
+      h2 {
         font-size: clamp(36px, 10vw, 150px);
+        margin: 20px 0;
         /* font-size: 10vw; */
       }
     </style>
@@ -25,22 +28,62 @@
   <body>
     <h1></h1>
     <h2></h2>
+    <h3></h3>
     <script>
+      function bank(num, ratio) {
+        return num + (num * ratio) / 100 - num * 0.015;
+      }
+      function bmi(height, weight) {
+        const cm = height / 100;
+        return weight / cm ** 2; // cm*cm  === cm**2 === Math.pow(cm,2)
+      }
+      const returnMoney = bank(70000000, 4.5);
+      function addZero(num) {
+        if (num < 10) {
+          return "0" + num;
+        }
+        return "" + num;
+      }
+
       const now = new Date();
       const year = now.getFullYear();
-      let month = now.getMonth() + 1;
-      let date = now.getDate();
+      let month = addZero(now.getMonth() + 1);
+      let date = addZero(now.getDate());
       const day = now.getDay(); //0~6 , 일,월,화,수,목,금
       const dayList = ["Sun", "Mon", "화요일", "수요일", "목요일", "금요일", "토요일"];
-      if (month < 10) {
-        month = "0" + month;
+
+      let hour = addZero(now.getHours());
+      let min = addZero(now.getMinutes());
+      let sec = addZero(now.getSeconds());
+
+      function plusFive(num) {
+        console.log(num + 5);
       }
-      if (date < 10) {
-        date = "0" + date;
-      }
+      plusFive(3);
+      plusFive(7);
+
+      // if (month < 10) {
+      //   month = "0" + month;
+      // }
+      // if (date < 10) {
+      //   date = "0" + date;
+      // }
+      // if (hour < 10) {
+      //   hour = "0" + hour;
+      // }
+      // if (min < 10) {
+      //   min = "0" + min;
+      // }
+      // if (sec < 10) {
+      //   sec = "0" + sec;
+      // }
+
       // month에 +1을 했을때 10보다 작으면 "0"+1
       // document.querySelector("h1").textContent = year + "/" + (month + 1) + "/" + date + dayList[day];
       document.querySelector("h1").textContent = `${year}/${month}/${date} ${dayList[day]}`;
+
+      document.querySelector("h2").innerHTML = `<span>${hour}</span>:<span>${min}</span>:${sec}`;
+      document.querySelector("h3").textContent = returnMoney;
     </script>
   </body>
 </html>
