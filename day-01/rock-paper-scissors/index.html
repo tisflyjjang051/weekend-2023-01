@@ -48,24 +48,40 @@
   <script>
     const comItems = document.querySelectorAll("#com ul li");
     const playerItems = document.querySelectorAll("#player ul li");
-    console.log("🚀 ~ file: index.html:50 ~ comItems", comItems);
+
+    let random = parseInt(Math.random() * 3);
     function showComputerItem() {
-      const random = parseInt(Math.random() * 3);
-      console.log("🚀 ~ file: index.html:53 ~ showComputerItem ~ random", random);
-      comItems[0].style.display = "none";
-      comItems[1].style.display = "none";
-      comItems[2].style.display = "none";
+      random = Math.floor(Math.random() * 3);
+      comItems.forEach(function (item) {
+        item.style.display = "none";
+      });
       comItems[random].style.display = "block";
     }
     let idx = setInterval(showComputerItem, 30);
-    playerItems[0].addEventListener("click", function () {
-      clearInterval(idx);
-    });
-    playerItems[1].addEventListener("click", function () {
-      clearInterval(idx);
-    });
-    playerItems[2].addEventListener("click", function () {
-      clearInterval(idx);
+
+    playerItems.forEach(function (item, i) {
+      item.addEventListener("click", function () {
+        clearInterval(idx);
+        //0, 1, 2;
+
+        //com 0   player  0,  1   1  , 2
+        //com 0   player  1
+        //com 1   player  2
+        //com 2   player  0
+
+        console.log(random, "===", i);
+        if (random === i) {
+          console.log("draw");
+        } else if (random === 0 && i === 1) {
+          console.log("win");
+        } else if (random === 1 && i === 2) {
+          console.log("win");
+        } else if (random === 2 && i === 0) {
+          console.log("win");
+        } else {
+          console.log("lose");
+        }
+      });
     });
   </script>
 </html>
