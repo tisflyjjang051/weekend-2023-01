@@ -12,22 +12,33 @@
   </head>
   <body>
     <div>
-      <input type="text" placeholder="search image..." class="search" />
+      <input type="text" placeholder="search image & vclip..." class="search" />
     </div>
-    <ul class="thumbs"></ul>
+    <div class="image">
+      <h2>Images</h2>
+      <ul class="thumbs"></ul>
+    </div>
+    <div class="vclip">
+      <h2>Vclips</h2>
+      <ul class="thumbs"></ul>
+    </div>
     <script>
       // promise
       const search = document.querySelector(".search");
-      const thumbs = document.querySelector(".thumbs");
+
+      const imgThumbs = document.querySelector(".image .thumbs");
+      const vclipThumbs = document.querySelector(".vclip .thumbs");
+
       search.addEventListener("keyup", function (e) {
         console.log(e);
         if (e.keyCode === 13) {
           loadImg(search.value);
+          loadVclip(search.value);
         }
       });
       //loadImg("로지");
       function loadImg(searchWord) {
-        const myFetch = fetch(`http://dapi.kakao.com/v2/search/image?query=${searchWord}`, {
+        const myFetch = fetch(`https://dapi.kakao.com/v2/search/image?query=${searchWord}`, {
           headers: { Authorization: "KakaoAK 6b2baf1cf6415f955c240557b86a01e2" },
         })
           .then(function (response) {
@@ -41,18 +52,37 @@
             json.documents.forEach(function (item, idx) {
               tempHtml += `<li><a href="${item.image_url}" data-fancybox="img"><img src="${item.thumbnail_url}"></a></li>`;
             });
-            thumbs.innerHTML = tempHtml;
-            gsap.from(".thumbs li", { scale: 0, duration: 1, stagger: 0.01 });
+            imgThumbs.innerHTML = tempHtml;
+            gsap.from(".image .thumbs li", { scale: 0, duration: 1, stagger: 0.01 });
           })
           .catch(function (error) {
             console.log(error);
           });
       }
 
-      console.log(myFetch);
-      // 소개팅... pending
-      // 그녀가 나왔음... fulfilled
-      // 그녀가 나오지 않았음  reject
+      function loadVclip(searchWord) {
+        const myFetch = fetch(`https://dapi.kakao.com/v2/search/vclip?query=${searchWord}&size=30`, {
+          headers: { Authorization: "KakaoAK 6b2baf1cf6415f955c240557b86a01e2" },
+        })
+          .then(function (response) {
+            //console.log(response);
+            //console.log(response.json());
+            return response.json();
+          })
+          .then(function (json) {
+            console.log(json);
+            let tempHtml = "";
+            json.documents.forEach(function (item, idx) {
+              tempHtml += `<li><a href="${item.url}" data-fancybox="img"><img src="${item.thumbnail}"></a></li>`;
+            });
+            vclipThumbs.innerHTML = tempHtml;
+            gsap.from(".vclip .thumbs li", { scale: 0, duration: 1, stagger: 0.01 });
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+
       const isHandsome = true;
       const myPromise = new Promise(function (resolve, reject) {
         if (isHandsome) {

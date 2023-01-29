@@ -36,3 +36,7 @@ img {
 .thumbs li img {
   width: 100%;
 }
+
+.image .thumbs li {
+  width: 60px;
+}
