@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/fancybox.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5d738bd87720c302b72dc8d2b8fc03d4&libraries=services"></script>
+    <script src="js/greensock/gsap.min.js"></script>
+    <script src="js/fancybox.umd.js"></script>
+  </head>
+
+  <body>
+    <div>
+      <input type="text" placeholder="전기차 충전소 검색하기" class="search" />
+    </div>
+    <div class="map"></div>
+    <script>
+      /*
+    const myFetch = fetch("https://api.odcloud.kr/api/EvInfoServiceV2/v1/getEvSearchList?page=1&perPage=100&cond%5Baddr%3A%3ALIKE%5D=%EC%84%9C%EC%9A%B8&serviceKey=Wnus4QpirWGI56CfvzMWDIDHMRL%2FmEF%2FqTl9gwVNbRggLYTGPFIdwBy0L51B%2B27d5QRbLanNmIAxPwNvl7dKPA%3D%3D");
+    const myJson = myFetch.then(function(response){
+      return response.json();
+    })
+    myJson.then(function(result){
+      console.log(result)
+    })
+    */
+      const mapContainer = document.querySelector(".map");
+      const mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3, // 지도의 확대 레벨
+      };
+
+      const myMap = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+      fetch(
+        "https://api.odcloud.kr/api/EvInfoServiceV2/v1/getEvSearchList?page=1&perPage=100&cond%5Baddr%3A%3ALIKE%5D=%EC%84%9C%EC%9A%B8&serviceKey=Wnus4QpirWGI56CfvzMWDIDHMRL%2FmEF%2FqTl9gwVNbRggLYTGPFIdwBy0L51B%2B27d5QRbLanNmIAxPwNvl7dKPA%3D%3D"
+      )
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (result) {
+          const { data } = result;
+          console.log("🚀 ~ file: car.html:46 ~ data", data);
+          const markers = [];
+          data.forEach(function (item, idx) {
+            const marker = new kakao.maps.Marker({
+              map: myMap,
+              position: new kakao.maps.LatLng(item.lat, item.longi),
+            });
+            markers.push(marker);
+          });
+          //myMap.addMarkers(markers);
+        });
+    </script>
+  </body>
+</html>
