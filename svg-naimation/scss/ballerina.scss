@@ -9,8 +9,12 @@
     path {
       stroke-width: 2px;
       &.cls-4 {
-        stroke-dasharray: 5053;
-        stroke-dashoffset: 5053;
+        stroke-dasharray: 4871;
+        stroke-dashoffset: 4871;
+        //transition: all 15s;
+        &.on {
+          stroke-dashoffset: 0;
+        }
       }
     }
   }
@@ -29,3 +33,4 @@
     font-family: "Nunito";
   }
 }
+

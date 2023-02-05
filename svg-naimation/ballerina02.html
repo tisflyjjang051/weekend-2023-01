@@ -79,7 +79,51 @@
       </svg>
       <div class="title" data-splitting>BALLERINA</div>
     </div>
-    <script></script>
+    <script>
+      Splitting();
+      const cls4 = document.querySelector(".cls-4");
+      const total = cls4.getTotalLength();
+      // setTimeout(function () {
+      //   cls4.classList.add("on");
+      // }, 1000);
+
+      const tl = gsap.timeline();
+
+      tl.to(".cls-4", {
+        strokeDashoffset: 0,
+        duration: 10,
+      })
+        .from(
+          ".cls-1",
+          {
+            fill: "transparent",
+            duration: 2,
+          },
+          "-=5"
+        )
+        .from(".cls-2", {
+          fill: "transparent",
+          duration: 2,
+        })
+        .from(
+          ".cls-3",
+          {
+            fill: "transparent",
+            duration: 2,
+          },
+          3
+        )
+        .from(
+          ".title .char",
+          {
+            y: -100,
+            opacity: 0,
+            stagger: 0.1,
+          },
+          "-=2"
+        );
+      //svg animation code
+    </script>
   </body>
 </html>
 
