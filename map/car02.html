@@ -18,6 +18,9 @@
     <div>
       <input type="text" placeholder="전기차 충전소 검색하기" class="search" />
     </div>
+    <div>
+      <ul class="csList"></ul>
+    </div>
     <div class="map"></div>
     <script>
       /*
@@ -30,8 +33,26 @@
       })
       */
       const mapContainer = document.querySelector(".map");
-      //const btnClose = document.querySelector(".map .contents .close");
-      //console.log("🚀 ~ file: car.html:34 ~ btnClose", btnClose);
+      const csList = document.querySelector(".csList");
+
+      csList.addEventListener("click", function (e) {
+        if (e.target.tagName === "LI" || e.target.closest("li")) {
+          const { csnm, addr, lat, longi, cpnm } = e.target.dataset;
+          customOverlay.setMap(myMap);
+          customOverlay.setPosition(new kakao.maps.LatLng(lat, longi));
+          customOverlay.setContent(
+            `<div class="contents">
+                    <h2>${csnm}</h2>
+                    <h3>${addr}</h3>
+                    <h3>충전타입 : ${cpnm}</h3>
+                    <button class="close"><span class="material-icons">close</span></button>
+                   </div>
+                  `
+          );
+          myMap.setLevel(8);
+        }
+      });
+
       const mapOption = {
         center: new kakao.maps.LatLng(37.66826, 126.9786557), // 지도의 중심좌표
         level: 14, // 지도의 확대 레벨
@@ -82,29 +103,12 @@
           })
           .then(function (result) {
             const { data } = result;
-            console.log("🚀 ~ file: car.html:46 ~ data", data);
-            const markers = [];
+            console.log(data);
+            let temp = "";
             data.forEach(function (item, idx) {
-              const marker = new kakao.maps.Marker({
-                map: myMap,
-                position: new kakao.maps.LatLng(item.lat, item.longi),
-              });
-              kakao.maps.event.addListener(marker, "click", function () {
-                customOverlay.setMap(myMap);
-                customOverlay.setPosition(marker.getPosition());
-                customOverlay.setContent(
-                  `<div class="contents">
-                    <h2>${item.csNm}</h2>
-                    <h3>${item.addr}</h3>
-                    <h3>충전타입 : ${item.cpNm}</h3>
-                    <button class="close"><span class="material-icons">close</span></button>
-                   </div>
-                  `
-                );
-              });
-              markers.push(marker);
+              temp += `<li data-lat="${item.lat}" data-longi ="${item.longi}" data-csNm = "${item.csNm}" data-addr="${item.addr}" data-cpNm="${item.cpNm}">${item.csNm}</li>`;
             });
-            clusterer.addMarkers(markers);
+            csList.innerHTML = temp;
           });
       }
     </script>
