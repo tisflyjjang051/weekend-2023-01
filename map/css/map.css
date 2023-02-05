@@ -35,3 +35,25 @@
   transform: translateY(-100%);
   line-height: 1;
 }
+
+.csList {
+  display: flex;
+  width: 1400px;
+  margin: 50px auto;
+  gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.csList li {
+  border: 1px solid #ccc;
+  padding: 10px 15px;
+  border-radius: 100px;
+  cursor: pointer;
+}
+.csList li.on {
+  background-color: #008cd7;
+  border-color: #008cd7;
+  color: #fff;
+  overflow: hidden;
+  text-shadow: 1px 1px 0px #004a71,2px 2px 0px #004a71,3px 3px 0px #004a71,4px 4px 0px #004a71,5px 5px 0px #004a71,6px 6px 0px #004a71,7px 7px 0px #004a71,8px 8px 0px #004a71,9px 9px 0px #004a71,10px 10px 0px #004a71,11px 11px 0px #004a71,12px 12px 0px #004a71,13px 13px 0px #004a71,14px 14px 0px #004a71,15px 15px 0px #004a71,16px 16px 0px #004a71,17px 17px 0px #004a71,18px 18px 0px #004a71,19px 19px 0px #004a71,20px 20px 0px #004a71,21px 21px 0px #004a71,22px 22px 0px #004a71,23px 23px 0px #004a71,24px 24px 0px #004a71,25px 25px 0px #004a71,26px 26px 0px #004a71,27px 27px 0px #004a71,28px 28px 0px #004a71,30px 30px 0px #004a71;
+}

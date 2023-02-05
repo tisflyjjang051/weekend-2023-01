@@ -1,3 +1,4 @@
+@import "mixin";
 .map {
   .contents {
     background-color: #fff;
@@ -35,6 +36,28 @@
       transform: translateY(-100%);
       line-height: 1;
       //padding: 10px;
+    }
+  }
+}
+.csList {
+  display: flex;
+  width: 1400px;
+  margin: 50px auto;
+  gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  li {
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    border-radius: 100px;
+    cursor: pointer;
+    &.on {
+      $blue: #008cd7;
+      background-color: $blue;
+      border-color: $blue;
+      color: #fff;
+      overflow: hidden;
+      @include longShadow(darken($blue, 20), 30);
     }
   }
 }

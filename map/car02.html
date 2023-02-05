@@ -37,6 +37,12 @@
 
       csList.addEventListener("click", function (e) {
         if (e.target.tagName === "LI" || e.target.closest("li")) {
+          const siblings = [...e.target.parentElement.children];
+          siblings.forEach(function (item, idx) {
+            item.classList.remove("on");
+          });
+          console.log("🚀 ~ file: car02.html:41 ~ siblings", siblings);
+          e.target.classList.add("on");
           const { csnm, addr, lat, longi, cpnm } = e.target.dataset;
           customOverlay.setMap(myMap);
           customOverlay.setPosition(new kakao.maps.LatLng(lat, longi));
@@ -49,7 +55,9 @@
                    </div>
                   `
           );
+          marker.setPosition(new kakao.maps.LatLng(lat, longi));
           myMap.setLevel(8);
+          myMap.setCenter(new kakao.maps.LatLng(lat, longi));
         }
       });
 
@@ -72,6 +80,9 @@
         //position: position,
         //content: `<h1>나는 커스텀 오버레이</h1>`,
         yAnchor: 1,
+      });
+      const marker = new kakao.maps.Marker({
+        map: myMap,
       });
 
       // 이벤트 위임... ajax를 통해 새로운 태그가 만들어질때 이벤트를 걸고 싶다.
