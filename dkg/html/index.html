@@ -214,26 +214,32 @@
       gsap.defaults({ ease: "power3", duration: 1 });
 
       const mainVisualTL = gsap.timeline();
-      mainVisualTL.from("#mainVisual .txtBox h2 .char", { x: 100, opacity: 0, stagger: 0.05 }).from("#mainVisual .txtBox p .char", { x: 100, opacity: 0, stagger: 0.05 });
+      mainVisualTL
+        .from("#mainVisual .txtBox h2 .char", { x: 100, opacity: 0, stagger: 0.05 })
+        .from("#mainVisual .txtBox p .char", { x: 100, opacity: 0, stagger: 0.05 })
+        .from(CSSRulePlugin.getRule("#mainVisual .txtBox strong:after"), { cssRule: { scaleX: 0 } });
 
       const businessTL = gsap.timeline();
       businessTL
         .from("#business .txtBox h2 .char", { x: 100, opacity: 0, stagger: 0.05 })
         .from("#business .txtBox p .char", { x: 100, opacity: 0, stagger: 0.05 })
-        .from("#business .iconBox li", { x: 100, opacity: 0, stagger: 0.05 });
+        .from(CSSRulePlugin.getRule("#business .txtBox strong:after"), { cssRule: { scaleX: 0 } }, "charEnd")
+        .from("#business .iconBox li", { x: 100, opacity: 0, stagger: 0.05 }, "charEnd");
 
       const portfolioTL = gsap.timeline();
       portfolioTL
         .from("#portfolio .txtBox h2 .char", { x: 100, opacity: 0, stagger: 0.05 })
         .from("#portfolio .txtBox p .char", { x: 100, opacity: 0, stagger: 0.05 })
         .from("#portfolio .more", { scale: 0 })
-        .from("#portfolio .portfolioBox li", { x: 100, opacity: 0, stagger: 0.05 });
+        .from(CSSRulePlugin.getRule("#portfolio .txtBox strong:after"), { cssRule: { scaleX: 0 } }, "charEnd")
+        .from("#portfolio .portfolioBox li", { x: 100, opacity: 0, stagger: 0.05 }, "charEnd");
 
       const communityTL = gsap.timeline();
       communityTL
         .from("#community .txtBox h2 .char", { x: 100, opacity: 0, stagger: 0.05 })
         .from("#community .txtBox p .char", { x: 100, opacity: 0, stagger: 0.05 })
-        .from("#community .communityBox li", { x: 100, opacity: 0, stagger: 0.05 });
+        .from(CSSRulePlugin.getRule("#community .txtBox strong:after"), { cssRule: { scaleX: 0 } }, "charEnd")
+        .from("#community .communityBox li", { x: 100, opacity: 0, stagger: 0.05 }, "charEnd");
 
       new fullpage("#main", {
         onLeave: function (origin, destination, direction, trigger) {
