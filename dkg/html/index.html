@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="../css/layout.css" />
     <link rel="stylesheet" href="../css/main.css" />
 
+    <script src="../js/jquery-3.6.3.min.js"></script>
     <script src="../js/splitting.min.js"></script>
     <script src="../js/fullpage.min.js"></script>
     <script src="../js/greensock/gsap.min.js"></script>
@@ -89,7 +90,7 @@
             고객만족을 실현하는 최고의 <strong>부동산 개발 전문기업</strong>
           </p>
         </div>
-        <video src="../images/main/main.mp4" id="video" muted autoplay loop></video>
+        <video src="../images/main/main.mp4" id="video" muted autoplay loop data-keepplaying></video>
       </div>
       <!--mainVisual end-->
       <div id="business" class="section">
@@ -210,9 +211,7 @@
     </main>
     <script>
       Splitting();
-
       gsap.defaults({ ease: "power3", duration: 1 });
-
       const mainVisualTL = gsap.timeline();
       mainVisualTL
         .from("#mainVisual .txtBox h2 .char", { x: 100, opacity: 0, stagger: 0.05 })
@@ -242,6 +241,8 @@
         .from("#community .communityBox li", { x: 100, opacity: 0, stagger: 0.05 }, "charEnd");
 
       new fullpage("#main", {
+        navigation: true,
+        navigationTooltips: ["WE WILL MAKE IT HAPPEN", "BUSINESS", "PORTFOLIO", "COMMUNITY"],
         onLeave: function (origin, destination, direction, trigger) {
           console.log(origin);
           console.log(destination);
@@ -259,8 +260,19 @@
           if (destination.index === 0) mainVisualTL.restart();
           else if (destination.index === 1) businessTL.restart();
           else if (destination.index === 2) portfolioTL.restart();
-          else if (destination.index === 3) communityTL.restart();
+          else if (destination.index === 3 && direction === "down") communityTL.restart();
         },
+      });
+
+      // jQuery
+      $("#gnb ul > li").on("mouseenter", function () {
+        $("#header").addClass("on");
+        console.log($(this));
+        const tx = $(this).offset().left + $(this).width() / 2;
+        gsap.to("#gnb .circle", { left: tx, duration: 0.5, ease: "power3" });
+      });
+      $("#gnb").on("mouseleave", function () {
+        $("#header").removeClass("on");
       });
     </script>
   </body>

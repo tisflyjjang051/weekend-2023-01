@@ -206,21 +206,44 @@
   text-shadow: 1px 1px 0 #c26209,2px 2px 0 #c26209,3px 3px 0 #c26209,4px 4px 0 #c26209,5px 5px 0 #c26209,6px 6px 0 #c26209,7px 7px 0 #c26209,8px 8px 0 #c26209,9px 9px 0 #c26209,10px 10px 0 #c26209,11px 11px 0 #c26209,12px 12px 0 #c26209,13px 13px 0 #c26209,14px 14px 0 #c26209,15px 15px 0 #c26209,16px 16px 0 #c26209,17px 17px 0 #c26209,18px 18px 0 #c26209,19px 19px 0 #c26209,20px 20px 0 #c26209,21px 21px 0 #c26209,22px 22px 0 #c26209,23px 23px 0 #c26209,24px 24px 0 #c26209,25px 25px 0 #c26209,26px 26px 0 #c26209,27px 27px 0 #c26209,28px 28px 0 #c26209,29px 29px 0 #c26209,30px 30px 0 #c26209,31px 31px 0 #c26209,32px 32px 0 #c26209,33px 33px 0 #c26209,34px 34px 0 #c26209,35px 35px 0 #c26209,36px 36px 0 #c26209,37px 37px 0 #c26209,38px 38px 0 #c26209,39px 39px 0 #c26209,40px 40px 0 #c26209,41px 41px 0 #c26209,42px 42px 0 #c26209,43px 43px 0 #c26209,44px 44px 0 #c26209,45px 45px 0 #c26209,46px 46px 0 #c26209,47px 47px 0 #c26209,48px 48px 0 #c26209,50px 50px 0 #c26209;;
 }
 #fp-nav {
-  transition: all 0.5s ease-in-out;
-}
-
-#fp-nav.fp-right.last {
-  right: -300px;
+  position: fixed;
+  z-index: 100;
+  top: 50%;
+  opacity: 1;
+  transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -webkit-transform: translate3d(0, -50%, 0);
 }
 
 #fp-nav.fp-right {
   right: 50px;
 }
 
+#fp-nav.fp-left {
+  left: 17px;
+}
+
+#fp-nav ul {
+  margin: 0;
+  padding: 0;
+}
+
 #fp-nav ul li {
+  display: block;
   width: 14px;
   height: 14px;
   margin: 30px 0;
+  position: relative;
+}
+
+#fp-nav ul li a {
+  display: block;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 #fp-nav ul li a.active span,
@@ -228,14 +251,23 @@
   height: 4px;
   width: 4px;
   margin: -2px;
+  border-radius: 100%;
 }
 
 #fp-nav ul li a span {
+  border-radius: 50%;
+  position: absolute;
+  z-index: 1;
   height: 4px;
   width: 4px;
   border: 0;
   background: #fff;
+  left: 50%;
+  top: 50%;
   margin: -2px;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
 }
 
@@ -244,30 +276,19 @@
   display: block;
   width: 30px;
   height: 30px;
-  border-radius: 100px;
+  border-radius: 100%;
   border: 2px solid #fff;
   position: absolute;
   left: 50%;
   top: 50%;
-  box-sizing: border-box;
   margin: -15px;
+  box-sizing: border-box;
   transform: scale(0);
-  transition: all 0.1s ease-in-out;
+  transition: all 0.15s ease-in-out;
 }
 
 #fp-nav ul li a.active:after {
   transform: scale(1);
-}
-
-#fp-nav ul li a:before {
-  content: "";
-  display: block;
-  width: 300px;
-  height: 30px;
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 #fp-nav ul li:hover a span {
@@ -278,9 +299,10 @@
 
 #fp-nav ul li .fp-tooltip {
   position: absolute;
-  top: -2px;
+  top: 50%;
+  transform: translateY(-50%);
   color: #fff;
-  font-size: 16px;
+  font-size: 14px;
   font-family: inherit;
   white-space: nowrap;
   max-width: 220px;
@@ -288,17 +310,29 @@
   display: block;
   opacity: 0.5;
   width: auto;
-  text-transform: uppercase;
   cursor: pointer;
 }
+
+#fp-nav ul li a.active + .fp-tooltip {
+  opacity: 1;
+}
+
+#fp-nav ul li:hover .fp-tooltip,
+#fp-nav.fp-show-active a.active + .fp-tooltip {
+  -webkit-transition: opacity 0.2s ease-in;
+  transition: opacity 0.2s ease-in;
+  width: auto;
+  opacity: 1;
+}
+
 #fp-nav ul li .fp-tooltip.fp-right {
   right: 40px;
 }
 
-#fp-nav.disable ul li .fp-tooltip {
-  display: none !important;
+#fp-nav ul li .fp-tooltip.fp-left {
+  left: 20px;
 }
 
-#fp-nav ul li:nth-last-child(1) {
+#fp-nav ul li:last-child {
   display: none;
 }
