@@ -7,10 +7,10 @@ body {
   font-size: 1.6rem;
   background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05) 1px, 0, transparent 5%) #333;
   // margin-right: 17px;
-  //overflow: hidden !important;
+  overflow: hidden !important;
 }
 .fp-snaps body {
-  overflow-y: hidden !important;
+  //overflow-y: hidden !important;
 }
 #header {
   position: fixed;

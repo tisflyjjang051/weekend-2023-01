@@ -87,7 +87,8 @@
           let tempHtml = "";
           clockList.forEach(function (item, idx) {
             tempHtml += `
-            <div class="section" id="clock${idx + 1}" style="background-image:url('../images/${item.bg}')">
+            <div class="section" id="clock${idx + 1}" 
+            style="background-image:url('../images/${item.bg}')">
               <div class="info">
                   <p class="category">${item.category}</p>
                   <p class="title">
@@ -104,6 +105,9 @@
             `;
           });
           $("#main").html(tempHtml);
+          new fullpage("#main", {
+            scrollBar: true,
+          });
         });
     </script>
   </body>
