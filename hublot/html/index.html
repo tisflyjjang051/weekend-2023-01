@@ -73,6 +73,38 @@
       <div></div>
       <div></div>
     </div>
-    <script></script>
+    <script>
+      const coverTL = gsap.timeline();
+      coverTL.to(".cover div", { yPercent: -100, ease: "power4", duration: 1, stagger: 0.05 });
+
+      fetch("../data/bigbang.json")
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (result) {
+          console.log(result.clock);
+          const clockList = result.clock;
+          let tempHtml = "";
+          clockList.forEach(function (item, idx) {
+            tempHtml += `
+            <div class="section" id="clock${idx + 1}" style="background-image:url('../images/${item.bg}')">
+              <div class="info">
+                  <p class="category">${item.category}</p>
+                  <p class="title">
+                      ${item.title}
+                  </p>
+                  <p class="depth">
+                      ${item.depth}MM
+                  </p>
+                  <p class="price">
+                      CHF ${item.price}
+                  </p>
+              </div>
+            </div>
+            `;
+          });
+          $("#main").html(tempHtml);
+        });
+    </script>
   </body>
 </html>
