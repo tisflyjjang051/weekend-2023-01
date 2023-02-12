@@ -74,22 +74,56 @@
       <div></div>
     </div>
     <script>
+      let fullPage = null;
+      let selectJson = "bigbang";
       const coverTL = gsap.timeline();
-      coverTL.to(".cover div", { yPercent: -100, ease: "power4", duration: 1, stagger: 0.05 });
-
-      fetch("../data/bigbang.json")
-        .then(function (response) {
-          return response.json();
+      coverTL
+        .from(".cover div", {
+          yPercent: -100,
+          ease: "power4",
+          duration: 1,
+          stagger: 0.05,
+          onComplete: function () {
+            loadData(`../data/${selectJson}.json`);
+          },
         })
-        .then(function (result) {
-          console.log(result.clock);
-          const clockList = result.clock;
-          let tempHtml = "";
-          clockList.forEach(function (item, idx) {
-            tempHtml += `
+        .to(".cover div", {
+          delay: 1,
+          yPercent: 100,
+          ease: "power4.in",
+          duration: 1,
+          stagger: {
+            each: 0.05,
+            from: "end",
+          },
+        });
+
+      $(".gnbList li").on("click", function (e) {
+        console.log($(this).hasClass("on"));
+        e.preventDefault();
+        if (!$(this).hasClass("on")) {
+          coverTL.restart();
+          selectJson = $(this).data("url");
+          //loadData(`../data/${selectJson}.json`);
+          $(this).addClass("on").siblings().removeClass("on");
+        }
+      });
+      function loadData(json) {
+        //$("html").scrollTop(0);
+        fetch(json)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (result) {
+            console.log(result.clock);
+            const clockList = result.clock;
+            const total = clockList.length;
+            let tempHtml = "";
+            clockList.forEach(function (item, idx) {
+              tempHtml += `
             <div class="section" id="clock${idx + 1}" 
             style="background-image:url('../images/${item.bg}')">
-              <div class="info">
+              <div class="info" data-splitting>
                   <p class="category">${item.category}</p>
                   <p class="title">
                       ${item.title}
@@ -103,12 +137,41 @@
               </div>
             </div>
             `;
+            });
+            $("#main").html(tempHtml);
+            $(".pagination").text(`1/${total}`);
+            Splitting();
+            if (fullPage !== null) {
+              fullPage.destroy("all");
+            }
+            fullPage = new fullpage("#main", {
+              scrollBar: true,
+              onLeave: function (origin, destination, direction, trigger) {
+                console.log("leave");
+                const chars = destination.item.querySelectorAll(".char");
+                gsap.to(chars, {
+                  opacity: 0,
+                  y: -100,
+                  duration: 0,
+                });
+                $(".pagination").text(`${destination.index + 1}/${total}`);
+              },
+              afterLoad: function (origin, destination, direction, trigger) {
+                console.log("afterLoad");
+                gsap.to(".section.active .info .char", {
+                  opacity: 1,
+                  y: 0,
+                  duration: 1,
+                  ease: "bounce",
+                  stagger: {
+                    each: 0.02,
+                    from: "random",
+                  },
+                });
+              },
+            });
           });
-          $("#main").html(tempHtml);
-          new fullpage("#main", {
-            scrollBar: true,
-          });
-        });
+      }
     </script>
   </body>
 </html>
