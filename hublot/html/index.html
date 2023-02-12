@@ -19,6 +19,7 @@
     <script src="../js/greensock/CSSRulePlugin.min.js"></script>
     <script src="../js/splitting.min.js"></script>
     <script src="../js/fullpage.min.js"></script>
+    <script src="../js/particles.min.js"></script>
   </head>
   <body>
     <header id="header">
@@ -172,6 +173,9 @@
             });
           });
       }
+      particlesJS.load("bgParticle", "../data/particlesjs-config.json", function () {
+        //console.log("callback - particles.js config loaded");
+      });
     </script>
   </body>
 </html>
