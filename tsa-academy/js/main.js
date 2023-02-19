@@ -77,3 +77,77 @@ section02TL
   .from(".section02", {
     delay: 10,
   });
+// section03
+const section03TL = gsap.timeline({
+  scrollTrigger: {
+    markers: true,
+    trigger: ".section03",
+    scrub: 2,
+    pin: true,
+    start: "top top",
+    end: "bottom+=2000 top",
+  },
+});
+section03TL
+  .from(".section03 .title", {
+    backgroundColor: "transparent",
+  })
+  .from(".section03 .title .char", {
+    opacity: 0,
+    xPercent: 100,
+    stagger: 0.1,
+  })
+
+  .from(".section03 .mainTxt .char", {
+    opacity: 0,
+    xPercent: 100,
+    stagger: 0.1,
+  })
+  .from(".section03 .list li", {
+    opacity: 0,
+    xPercent: 100,
+    stagger: 0.1,
+  })
+  .from(".section03 .airplane", {
+    opacity: 0,
+    xPercent: -100,
+    yPercent: 100,
+  })
+  .from(".section03", {
+    delay: 10,
+  });
+// section04
+const section04TL = gsap.timeline({
+  scrollTrigger: {
+    markers: true,
+    trigger: ".section04",
+    scrub: 2,
+    pin: true,
+    start: "top top",
+    end: "bottom+=2000 top",
+  },
+});
+section04TL
+  .from(".section04 .title", {
+    backgroundColor: "transparent",
+  })
+  .from(".section04 .title .char", {
+    opacity: 0,
+    xPercent: 100,
+    stagger: 0.1,
+  })
+
+  .from(".section04 .mainTxt .char", {
+    opacity: 0,
+    xPercent: 100,
+    stagger: 0.1,
+  })
+  .from(".section04 .list li", {
+    opacity: 0,
+    xPercent: 100,
+    stagger: 0.1,
+  })
+
+  .from(".section04", {
+    delay: 10,
+  });
