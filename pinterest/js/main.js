@@ -1,5 +1,6 @@
 const itemList = document.querySelector(".itemList");
-
+const filter = document.querySelector("#filter ul");
+let iso = null;
 fetch("../data/typo.json")
   .then((response) => response.json())
   .then((result) => {
@@ -25,6 +26,12 @@ fetch("../data/typo.json")
     `;
     });
     itemList.innerHTML = tempHtml;
+    imagesLoaded(itemList, function () {
+      iso = new Isotope(itemList, {
+        itemSelector: ".item",
+        layoutMode: "masonry",
+      });
+    });
   });
 
 /*
@@ -86,3 +93,51 @@ axios
   itemList.innerHTML = tempHtml;
 });
 */
+
+const cursor = document.querySelector(".cursor");
+const cursorTxt = document.querySelector(".cursor .txt");
+
+window.addEventListener("mousemove", function (e) {
+  //console.log(e);
+
+  //cursor.style.left = e.clientX + "px";
+  //cursor.style.top = e.clientY + "px";
+  gsap.to(cursor, { left: e.clientX, top: e.clientY });
+
+  $("input[name='clientY']").val(e.clientY);
+  $("input[name='pageY']").val(e.pageY);
+  $("input[name='offsetY']").val(e.offsetY);
+  $("input[name='screenY']").val(e.screenY);
+});
+// document.body.addEventListener("click", function (e) {
+//   console.log(e.target);
+// });
+
+itemList.addEventListener("mouseenter", function (e) {
+  //console.log(e.target);
+  gsap.to(cursor, { width: 80, height: 80, backgroundColor: "#c92a2a", ease: "elastic", duration: 1 });
+  cursorTxt.textContent = "VIEW";
+});
+itemList.addEventListener("mouseleave", function (e) {
+  //console.log(e.target);
+  gsap.to(cursor, { width: 10, height: 10, backgroundColor: "#ffffff", ease: "elastic", duration: 1 });
+  cursorTxt.textContent = "";
+});
+filter.addEventListener("mouseenter", function (e) {
+  //console.log(e.target);
+  gsap.to(cursor, { width: 80, height: 80, backgroundColor: "#c92a2a", ease: "elastic", duration: 1 });
+  cursorTxt.textContent = "CLICK";
+});
+filter.addEventListener("mouseleave", function (e) {
+  //console.log(e.target);
+  gsap.to(cursor, { width: 10, height: 10, backgroundColor: "#ffffff", ease: "elastic", duration: 1 });
+  cursorTxt.textContent = "";
+});
+
+filter.addEventListener("click", function (e) {
+  const item = e.target;
+  const filterWord = `.${item.dataset.filter}`;
+  console.log("🚀 ~ file: main.js:140 ~ filterWord", filterWord);
+  iso.arrange({ filter: filterWord });
+  //iso.arrange();
+});
