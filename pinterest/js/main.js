@@ -10,7 +10,7 @@ fetch("../data/typo.json")
     typoList.forEach(function (item, idx) {
       tempHtml += `
     <li class="item ${item.category}">
-      <a href="title">
+      <a href="../images/${item.img}" data-fancybox="${item.category}">
         <div class="img">
           <img src="../images/${item.img}" alt="" />
         </div>
@@ -30,6 +30,12 @@ fetch("../data/typo.json")
       iso = new Isotope(itemList, {
         itemSelector: ".item",
         layoutMode: "masonry",
+        getSortData: {
+          point: ".point",
+          title: ".title",
+        },
+        sortBy: ["point", "title"],
+        sortAscending: false,
       });
     });
   });
@@ -134,10 +140,25 @@ filter.addEventListener("mouseleave", function (e) {
   cursorTxt.textContent = "";
 });
 
+const items = filter.querySelectorAll("li");
+
 filter.addEventListener("click", function (e) {
   const item = e.target;
   const filterWord = `.${item.dataset.filter}`;
+  console.log(item.parentElement.children);
+  // item.parentElement.children.forEach(function (item, idx) {
+  //   console.log(item);
+  // });
+  // for (let i = 0; i < 4; i++) {
+  //   console.log(item.parentElement.children[i]);
+  // }
+  items.forEach(function (item, idx) {
+    item.classList.remove("on");
+  });
+  item.classList.add("on");
   console.log("🚀 ~ file: main.js:140 ~ filterWord", filterWord);
-  iso.arrange({ filter: filterWord });
+  iso.arrange({ filter: filterWord, sortBy: "point" });
   //iso.arrange();
 });
+
+// html login template

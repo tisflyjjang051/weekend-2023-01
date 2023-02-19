@@ -85,9 +85,14 @@ body {
   user-select: none;
   pointer-events: none;
   transform: translate(-50%, -50%);
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  @include longShadow(darken(#c92a2a, 10), right, 50);
   //display: none;
 }
-
+.with-fancybox .cursor {
+  display: none;
+}
 .fancybox__caption {
   font-size: 24px;
 }
