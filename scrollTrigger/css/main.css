@@ -1,0 +1,27 @@
+body {
+  height: 5000px;
+}
+
+.item {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 24px;
+  margin-top: 1000px;
+}
+
+.red {
+  background-color: rgb(189, 0, 0);
+}
+
+.green {
+  background-color: rgb(133, 222, 0);
+}
+
+.blue {
+  background-color: rgb(0, 119, 199);
+}
